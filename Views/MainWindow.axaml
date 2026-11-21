@@ -1,0 +1,93 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SistemaInventarioProductos.Views.MainWindow"
+        Title="Sistema de Inventario de Productos"
+        Width="1120" Height="760"
+        MinWidth="900" MinHeight="650"
+        WindowStartupLocation="CenterScreen">
+    <Grid RowDefinitions="Auto,Auto,*" Margin="22">
+        <Border Grid.Row="0" Background="#17324D" CornerRadius="12" Padding="22">
+            <StackPanel Spacing="5">
+                <TextBlock Text="SISTEMA DE INVENTARIO" FontSize="25" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Administración y control de productos" FontSize="14" Foreground="#D8E5F0"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="14" Margin="0,16,0,16">
+            <Border Grid.Column="0" Background="#E8F1F8" CornerRadius="10" Padding="15">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="PRODUCTOS REGISTRADOS" FontSize="12" FontWeight="Bold" Foreground="#38536B"/>
+                    <TextBlock Name="txtTotalProductos" Text="0" FontSize="25" FontWeight="Bold" Foreground="#17324D"/>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" Background="#EAF4EC" CornerRadius="10" Padding="15">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="UNIDADES EN INVENTARIO" FontSize="12" FontWeight="Bold" Foreground="#385F43"/>
+                    <TextBlock Name="txtTotalUnidades" Text="0" FontSize="25" FontWeight="Bold" Foreground="#246B3B"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" ColumnDefinitions="350,*" ColumnSpacing="18">
+            <Border Grid.Column="0" BorderBrush="#D7DEE5" BorderThickness="1" CornerRadius="10" Padding="18">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Datos del producto" FontSize="20" FontWeight="Bold" Foreground="#17324D"/>
+                        <TextBlock Text="Nombre"/>
+                        <TextBox Name="txtNombre" Watermark="Ej. Teclado mecánico"/>
+                        <TextBlock Text="Categoría"/>
+                        <TextBox Name="txtCategoria" Watermark="Ej. Accesorios"/>
+                        <TextBlock Text="Precio"/>
+                        <TextBox Name="txtPrecio" Watermark="Ej. 85000"/>
+                        <TextBlock Text="Cantidad"/>
+                        <TextBox Name="txtCantidad" Watermark="Ej. 10"/>
+                        <TextBlock Text="Descripción"/>
+                        <TextBox Name="txtDescripcion" Watermark="Descripción del producto"
+                                 AcceptsReturn="True" Height="82" TextWrapping="Wrap"/>
+                        <Button Content="Registrar producto" Click="Guardar_Click"
+                                Background="#246B3B" Foreground="White" HorizontalContentAlignment="Center"/>
+                        <Button Content="Actualizar seleccionado" Click="Actualizar_Click"
+                                Background="#245A83" Foreground="White" HorizontalContentAlignment="Center"/>
+                        <Button Content="Eliminar seleccionado" Click="Eliminar_Click"
+                                Background="#A33B3B" Foreground="White" HorizontalContentAlignment="Center"/>
+                        <Button Content="Limpiar campos" Click="Limpiar_Click"
+                                HorizontalContentAlignment="Center"/>
+                        <TextBlock Name="txtMensaje" Text="Completa los campos para registrar un producto."
+                                   TextWrapping="Wrap" Foreground="#38536B" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Column="1" BorderBrush="#D7DEE5" BorderThickness="1" CornerRadius="10" Padding="18">
+                <Grid RowDefinitions="Auto,Auto,*">
+                    <TextBlock Grid.Row="0" Text="Productos registrados" FontSize="20"
+                               FontWeight="Bold" Foreground="#17324D" Margin="0,0,0,12"/>
+                    <TextBox Grid.Row="1" Name="txtBuscar" Watermark="Buscar producto por nombre..."
+                             TextChanged="Buscar_TextChanged" Margin="0,0,0,12"/>
+                    <ListBox Grid.Row="2" Name="listaProductos" SelectionChanged="ListaProductos_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#E0E6EB" BorderThickness="0,0,0,1" Padding="10">
+                                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Nombre}"
+                                                   FontWeight="Bold" FontSize="15" Foreground="#17324D"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Precio, StringFormat='Precio: {0:N2}'}"
+                                                   FontWeight="Bold" Foreground="#246B3B"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Categoria}"
+                                                   Foreground="#526777" FontSize="12"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}"
+                                                   Foreground="#526777" FontSize="12"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Descripcion}"
+                                                   Foreground="#71808D" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Id, StringFormat='ID: {0}'}"
+                                                   Foreground="#71808D" FontSize="11"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
